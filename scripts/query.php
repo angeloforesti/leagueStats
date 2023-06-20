@@ -2,7 +2,8 @@
 
 require_once 'connection.php';
 
-// QUERRY QUE CHAMA as medias do drags DA LIGA CBLOL
+
+// QUERRY QUE CHAMA TODOS OS drags DA LIGA CBLOL
 if(isset($_POST['submit'])){
     $league = $_POST['league'];
 
