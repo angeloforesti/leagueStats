@@ -23,12 +23,21 @@
     <input type="submit" name="submit" id="submit" value="enviar">
 </form>
 
-<form method="post" action="scripts/queryAverageTime.php">
-    <label for="objective">average time per game</label>
+<form method="post" action="scripts/queryAllTowers.php">
+    <label for="objective">towers per game</label>
     <label for="league">League</label>
     <input type="text" id="league" name="league">
     <input type="submit" name="submit" id="submit" value="enviar">
 </form>
+
+<form method="post" action="scripts/queryAverageTowers.php">
+    <label for="objective">average towers per game</label>
+    <label for="league">League</label>
+    <input type="text" id="league" name="league">
+    <input type="submit" name="submit" id="submit" value="enviar">
+</form>
+
+
 
 </body>
 </html>
