@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../style/style.css">
+
 <?php
 
 require_once 'connection.php';

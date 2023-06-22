@@ -11,7 +11,8 @@ if(isset($_POST['submit'])){
 
     echo "League: " . $league;
 
-    $sql = "SELECT towers FROM games WHERE league = '$league' AND towers >= 0 AND towers IS NOT NULL AND position = 'team'"  ;
+    $sql = "SELECT  gamelength FROM games WHERE league = '$league' 
+    AND position = 'team' AND side ='red'";
 
 
     $resultado = mysqli_query($conn, $sql);
@@ -20,9 +21,12 @@ if(isset($_POST['submit'])){
         echo "<ul>";
     
         while ($row = mysqli_fetch_assoc($resultado)) {
-            $towers = $row['towers'];
-            if (!empty($towers)) {
-                echo  ", towers: " . $towers . "</li>";
+            $timeGame = $row['gamelength'];
+            $timeGameCorrect = floor($timeGame / 60);
+            $seconds = $timeGame % 60; 
+
+            if (!empty($timeGame)) {
+                echo "<li> gamelength: " . $timeGameCorrect . "minutes" . $seconds . "seconds". "</li>";
             }
         }
     
