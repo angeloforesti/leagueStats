@@ -10,15 +10,15 @@ if(isset($_POST['submit'])){
 
     echo "League: " . $league;
 
-    $sql = "SELECT AVG(dragons) AS average_dragons FROM games WHERE league = '$league'
-     AND position = 'team'";
+    $sql = "SELECT AVG(barons) AS average_barons FROM games WHERE league = '$league'
+     AND position = 'team' ";
 $resultado = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($resultado) > 0) {
     $row = mysqli_fetch_assoc($resultado);
-    $averageDragons = $row['average_dragons'];
+    $averageBarons = $row['average_barons'];
 
-    echo "Média de dragons: " . $averageDragons;
+    echo "Média de dragons: " . $averageBarons;
 } else {
     echo "Nenhum resultado encontrado.";
 }

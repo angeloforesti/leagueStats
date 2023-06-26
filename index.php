@@ -15,14 +15,14 @@
 <body class="bg-dark">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">League Stats</a>
+            <a class="navbar-brand" href="index.php">League Stats</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Quem Somos</a>
@@ -39,7 +39,7 @@
                         <a class="nav-link" href="#">Jogadores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Times</a>
+                        <a class="nav-link" href="teams.php">Times</a>
                     </li>
                 </ul>
             </div>
@@ -55,6 +55,20 @@
 
 <form method="post" action="scripts/queryAverageDragons.php" class="dark-form">
     <label for="objective">average Dragons per game</label>
+    <label for="league">League</label>
+    <input type="text" id="league" name="league">
+    <input type="submit" name="submit" id="submit" value="enviar">
+</form>
+
+<form method="post" action="scripts/queryAllBarons.php" class="dark-form">
+    <label for="objective">All Barons per game</label>
+    <label for="league">League</label>
+    <input type="text" id="league" name="league">
+    <input type="submit" name="submit" id="submit" value="enviar">
+</form>
+
+<form method="post" action="scripts/queryAverageBarons.php" class="dark-form">
+    <label for="objective">average Barons per game</label>
     <label for="league">League</label>
     <input type="text" id="league" name="league">
     <input type="submit" name="submit" id="submit" value="enviar">
