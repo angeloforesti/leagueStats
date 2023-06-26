@@ -18,10 +18,10 @@ $resultado = mysqli_query($conn, $sql);
 if (mysqli_num_rows($resultado) > 0) {
     $row = mysqli_fetch_assoc($resultado);
     $averageTime = $row['average_gamelength'];
-    $averageMinutes = floor($averageTime / 60);
-    $averageSeconds = intval($averageTime % 60); 
+    $averageMinutes = $averageTime / 60;
+    //$averageSeconds = $averageTime % 60; 
 
-    echo "Média de tempo: Minutos: " .$averageMinutes . "segundos : " . $averageSeconds ;
+    echo "Média de tempo: Minutos: " .$averageMinutes . "segundos : "  ;
 } else {
     echo "Nenhum resultado encontrado.";
 }
