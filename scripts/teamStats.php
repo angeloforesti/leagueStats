@@ -30,10 +30,12 @@ if(isset($_POST['submit'])){
         $averageBarons = $rowBarons['average_barons'];
         $averageTowers = $rowTowers['average_towers'];
         $averageTime = $rowGamelength['average_gamelength'];
-        $averageMinutes = floor($averageTime / 60);
-        $averageSeconds = intval($averageTime % 60);
+        $averageTimeRound = round($averageTime, 2);
+        $averageMinutes = floor($averageTimeRound / 60);
+        $averageSeconds = number_format(($averageTimeRound - ($averageMinutes * 60)), 2); 
+        $averageSecondsRound = round($averageSeconds, 0);
 
-        echo "Média de dragons: " . $averageDragons . " | Média de barons: " . $averageBarons . " | Média de towers: " . $averageTowers . " | Média de tempo: " . $averageMinutes . " minutos " . $averageSeconds . " segundos";
+        echo "Média de dragons: " . $averageDragons . " | Média de barons: " . $averageBarons . " | Média de towers: " . $averageTowers . " | Média de tempo: " . $averageMinutes . " minutos " . $averageSecondsRound . " segundos";
     } else {
         echo "Nenhum resultado encontrado.";
     }
