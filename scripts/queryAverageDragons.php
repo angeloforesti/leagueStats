@@ -10,15 +10,22 @@ if(isset($_POST['submit'])){
 
     echo "League: " . $league;
 
-    $sql = "SELECT AVG(dragons) AS average_dragons FROM games WHERE league = '$league'
-     AND position = 'team'";
-$resultado = mysqli_query($conn, $sql);
+    $sqlBlue = "SELECT AVG(dragons) AS average_dragons_blue FROM games WHERE league = '$league'
+     AND position = 'team' AND side ='blue'";
 
-if (mysqli_num_rows($resultado) > 0) {
-    $row = mysqli_fetch_assoc($resultado);
-    $averageDragons = $row['average_dragons'];
+    $sqlRed = "SELECT AVG(dragons) AS average_dragons_red FROM games WHERE league = '$league'
+         AND position = 'team' AND side ='red'";
 
-    echo "Média de dragons: " . round($averageDragons,2);
+$resultadoBlue = mysqli_query($conn, $sqlBlue);
+$resultadoRed = mysqli_query($conn, $sqlRed);
+
+if (mysqli_num_rows($resultadoBlue) > 0 && mysqli_num_rows($resultadoRed) > 0) {
+    $rowBlue = mysqli_fetch_assoc($resultadoBlue);
+    $rowRed = mysqli_fetch_assoc($resultadoRed);
+    $averageDragonsBlue = $rowBlue['average_dragons_blue'];
+    $averageDragonsRed = $rowRed['average_dragons_red'];
+
+    echo "Média de dragons: " . round(($averageDragonsBlue + $averageDragonsRed),2);
 } else {
     echo "Nenhum resultado encontrado.";
 }
