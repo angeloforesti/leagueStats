@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
     $row = mysqli_fetch_assoc($resultado);
     $averageTowers = $row['average_towers'];
 
-    echo "Média de torres: " . $averageTowers;
+    echo "Média de torres: " . round($averageTowers,2);
 } else {
     echo "Nenhum resultado encontrado.";
 }

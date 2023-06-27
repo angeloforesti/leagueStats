@@ -18,7 +18,7 @@ if (mysqli_num_rows($resultado) > 0) {
     $row = mysqli_fetch_assoc($resultado);
     $averagekills = $row['average_kills'];
 
-    echo "Média de kills: " . $averagekills;
+    echo "Média de kills: " . round($averagekills, 1);
 } else {
     echo "Nenhum resultado encontrado.";
 }

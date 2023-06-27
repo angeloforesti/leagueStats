@@ -18,7 +18,7 @@ if (mysqli_num_rows($resultado) > 0) {
     $row = mysqli_fetch_assoc($resultado);
     $averageDragons = $row['average_dragons'];
 
-    echo "Média de dragons: " . $averageDragons;
+    echo "Média de dragons: " . round($averageDragons,2);
 } else {
     echo "Nenhum resultado encontrado.";
 }

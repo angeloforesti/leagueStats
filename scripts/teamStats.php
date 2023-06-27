@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
         $averageSeconds = number_format(($averageTimeRound - ($averageMinutes * 60)), 2); 
         $averageSecondsRound = round($averageSeconds, 0);
 
-        echo "Média de dragons: " . $averageDragons . " | Média de barons: " . $averageBarons . " | Média de towers: " . $averageTowers . " | Média de tempo: " . $averageMinutes . " minutos " . $averageSecondsRound . " segundos";
+        echo "Média de dragons: " . round($averageDragons,2) . " | Média de barons: " . round($averageBarons,2) . " | Média de towers: " . round($averageTowers, 2) . " | Média de tempo: " . $averageMinutes . " minutos " . $averageSecondsRound . " segundos";
     } else {
         echo "Nenhum resultado encontrado.";
     }
