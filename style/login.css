@@ -1,0 +1,45 @@
+
+body {
+    background-image: url('img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.form-container {
+background-color: #222;
+color: #fff;
+padding: 20px;
+margin-bottom: 20px;
+border-radius: 5px;
+}
+
+.form-container label {
+color: #ddd;
+font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"] {
+background-color: #444;
+color: #fff;
+border: none;
+padding: 10px;
+margin-bottom: 10px;
+width: 100%;
+border-radius: 5px;
+}
+
+.form-container button[type="submit"] {
+background-color: #c00;
+color: #fff;
+border: none;
+padding: 10px 20px;
+margin-top: 10px;
+font-weight: bold;
+cursor: pointer;
+border-radius: 5px;
+}
+
+.form-container button[type="submit"]:hover {
+background-color: #900;
+}
