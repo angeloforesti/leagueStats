@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
 
     echo "League: " . $league;
 
-    $sql = "SELECT AVG(gamelength) AS average_gamelength FROM games WHERE league = '$league' 
+    $sql = "SELECT AVG(gamelength) AS average_gamelength_red FROM games WHERE league = '$league' 
     AND position = 'team' AND side ='red'";
 
 $resultado = mysqli_query($conn, $sql);

@@ -10,21 +10,20 @@ if(isset($_POST['submit'])){
 
     echo "League: " . $league;
 
-    $sql = "SELECT AVG(towers) AS average_towers, league
-    FROM games 
-    WHERE league = '$league' 
-    AND towers >= 0 AND towers IS NOT NULL 
-    AND position = 'team'
-    GROUP BY league, position";
+    $sqlRed = "SELECT AVG(towers) AS average_towers_red FROM games  WHERE league = '$league' 
+    AND position = 'team' and side = 'red'";
+    $sqlBlue = "SELECT AVG(towers) AS average_towers_Blue FROM games  WHERE league = '$league' 
+    AND position = 'team' and side = 'blue'";
 
+   $resultadoRed = mysqli_query($conn, $sqlRed);
+   $resultadoBlue = mysqli_query($conn, $sqlBlue);
+   if (mysqli_num_rows($resultadoRed) > 0 && mysqli_num_rows($resultadoBlue) > 0) {
+    $rowRed = mysqli_fetch_assoc($resultadoRed);
+    $rowBlue = mysqli_fetch_assoc($resultadoBlue);
+    $averageTowersRed = $rowRed['average_towers_red'];
+    $averageTowersBlue = $rowBlue['average_towers_Blue'];
 
-   $resultado = mysqli_query($conn, $sql);
-
-   if (mysqli_num_rows($resultado) > 0) {
-    $row = mysqli_fetch_assoc($resultado);
-    $averageTowers = $row['average_towers'];
-
-    echo "Média de torres: " . round($averageTowers,2);
+    echo "Média de torres: " . round(($averageTowersRed + $averageTowersBlue),2);
 } else {
     echo "Nenhum resultado encontrado.";
 }

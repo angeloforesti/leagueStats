@@ -10,17 +10,33 @@ if(isset($_POST['submit'])){
 
     echo "teams: " . $team1 . $team2;
 
-    $sqlDragons = "SELECT AVG(dragons) AS average_dragons FROM games WHERE teamname IN ('$team1', '$team2') AND position = 'team'";
-    $sqlBarons = "SELECT AVG(barons) AS average_barons FROM games WHERE teamname IN ('$team1', '$team2') AND position = 'team'";
-    $sqlTowers = "SELECT AVG(towers) AS average_towers FROM games WHERE teamname IN ('$team1', '$team2') AND position = 'team'";
-    $sqlGamelength = "SELECT AVG(gamelength) AS average_gamelength FROM games WHERE teamname IN ('$team1', '$team2') AND position = 'team' AND side ='red'";
+    $sqlDragons = "SELECT AVG(team1.dragons) AS average_dragons FROM games AS team1
+    JOIN games AS team2 ON team1.gameid = team2.gameid
+    WHERE team1.teamname = '$team1'
+      AND team2.teamname = '$team2'
+      AND team1.position = 'team'
+      AND team2.position = 'team'";
+
+    $sqlBarons = "SELECT AVG(team1.barons) AS average_barons FROM games AS team1
+    JOIN games AS team2 ON team1.gameid = team2.gameid
+    WHERE team1.teamname = '$team1'
+      AND team2.teamname = '$team2'
+      AND team1.position = 'team'
+      AND team2.position = 'team'";
+
+    $sqlTowers = "SELECT AVG(towers) AS average_towers FROM games 
+    WHERE teamname IN ('$team1', '$team2') AND position = 'team'";
+
+    $sqlGamelength = "SELECT AVG(gamelength) AS average_gamelength FROM games 
+    WHERE teamname IN ('$team1', '$team2') AND position = 'team' AND side ='red'";
 
     $resultadoDragons = mysqli_query($conn, $sqlDragons);
     $resultadoBarons = mysqli_query($conn, $sqlBarons);
     $resultadoTowers = mysqli_query($conn, $sqlTowers);
     $resultadoGamelength = mysqli_query($conn, $sqlGamelength);
 
-    if (mysqli_num_rows($resultadoDragons) > 0 && mysqli_num_rows($resultadoBarons) > 0 && mysqli_num_rows($resultadoTowers) > 0 && mysqli_num_rows($resultadoGamelength) > 0) {
+    if (mysqli_num_rows($resultadoDragons) > 0  && mysqli_num_rows($resultadoBarons) > 0 
+    && mysqli_num_rows($resultadoTowers) > 0 && mysqli_num_rows($resultadoGamelength) > 0) {
         $rowDragons = mysqli_fetch_assoc($resultadoDragons);
         $rowBarons = mysqli_fetch_assoc($resultadoBarons);
         $rowTowers = mysqli_fetch_assoc($resultadoTowers);

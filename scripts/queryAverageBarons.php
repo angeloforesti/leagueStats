@@ -8,17 +8,21 @@ require_once 'connection.php';
 if(isset($_POST['submit'])){
     $league = $_POST['league'];
 
-    echo "League: " . $league;
+    echo "League : " . $league;
 
-    $sql = "SELECT AVG(barons) AS average_barons FROM games WHERE league = '$league'
-     AND position = 'team' ";
-$resultado = mysqli_query($conn, $sql);
+    $sqlRed = "SELECT AVG(barons) AS average_barons_red FROM games WHERE league = '$league'
+    AND position = 'team' AND side = 'red'";
+    $sqlBlue = "SELECT AVG(barons) AS average_barons_blue FROM games WHERE league = '$league'
+    AND position = 'team' AND side = 'blue'";
+    $resultadoRed = mysqli_query($conn, $sqlRed);
+    $resultadoBlue = mysqli_query($conn, $sqlBlue);
+    if (mysqli_num_rows($resultadoRed) > 0) {
+    $rowRed = mysqli_fetch_assoc($resultadoRed);
+    $averageBaronsRed = $rowRed['average_barons_red'];
+    $rowBlue = mysqli_fetch_assoc($resultadoBlue);
+    $averageBaronsBlue = $rowBlue['average_barons_blue'];
 
-if (mysqli_num_rows($resultado) > 0) {
-    $row = mysqli_fetch_assoc($resultado);
-    $averageBarons = $row['average_barons'];
-
-    echo "Média de dragons: " . round($averageBarons,2);
+    echo "Média de barons : " . round(($averageBaronsRed + $averageBaronsBlue),2);
 } else {
     echo "Nenhum resultado encontrado.";
 }
