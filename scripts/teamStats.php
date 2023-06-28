@@ -10,19 +10,34 @@ if(isset($_POST['submit'])){
 
     echo "teams: " . $team1 . $team2;
 
-    $sqlDragons = "SELECT AVG(team1.dragons) AS average_dragons FROM games AS team1
+    $sqlDragonsTeam1 = "SELECT AVG(team1.dragons) AS average_dragons_team1 FROM games AS team1
     JOIN games AS team2 ON team1.gameid = team2.gameid
     WHERE team1.teamname = '$team1'
       AND team2.teamname = '$team2'
       AND team1.position = 'team'
       AND team2.position = 'team'";
+      
+    $sqlDragonsTeam2 = "SELECT AVG(team2.dragons) AS average_dragons_team2 FROM games AS team2
+    JOIN games AS team1 ON team2.gameid = team1.gameid
+    WHERE team2.teamname = '$team2'
+        AND team1.teamname = '$team1'
+        AND team2.position = 'team'
+        AND team1.position = 'team'";
 
-    $sqlBarons = "SELECT AVG(team1.barons) AS average_barons FROM games AS team1
-    JOIN games AS team2 ON team1.gameid = team2.gameid
-    WHERE team1.teamname = '$team1'
-      AND team2.teamname = '$team2'
-      AND team1.position = 'team'
-      AND team2.position = 'team'";
+$sqlBaronsTeam1 = "SELECT AVG(team1.barons) AS average_barons_team1 FROM games AS team1
+JOIN games AS team2 ON team1.gameid = team2.gameid
+WHERE team1.teamname = '$team1'
+  AND team2.teamname = '$team2'
+  AND team1.position = 'team'
+  AND team2.position = 'team'";
+
+$sqlBaronsTeam2 = "SELECT AVG(team1.barons) AS average_barons_team2 FROM games AS team2
+JOIN games AS team1 ON team2.gameid = team1.gameid
+WHERE team2.teamname = '$team2'
+    AND team1.teamname = '$team1'
+    AND team2.position = 'team'
+    AND team1.position = 'team'";
+      
 
     $sqlTowers = "SELECT AVG(towers) AS average_towers FROM games 
     WHERE teamname IN ('$team1', '$team2') AND position = 'team'";
@@ -30,20 +45,26 @@ if(isset($_POST['submit'])){
     $sqlGamelength = "SELECT AVG(gamelength) AS average_gamelength FROM games 
     WHERE teamname IN ('$team1', '$team2') AND position = 'team' AND side ='red'";
 
-    $resultadoDragons = mysqli_query($conn, $sqlDragons);
-    $resultadoBarons = mysqli_query($conn, $sqlBarons);
+    $resultadoDragonsTeam1 = mysqli_query($conn, $sqlDragonsTeam1);
+    $resultadoDragonsTeam2 = mysqli_query($conn, $sqlDragonsTeam2);
+    $resultadoBaronsTeam1 = mysqli_query($conn, $sqlBaronsTeam1);
+    $resultadoBaronsTeam2 = mysqli_query($conn, $sqlBaronsTeam2);
     $resultadoTowers = mysqli_query($conn, $sqlTowers);
     $resultadoGamelength = mysqli_query($conn, $sqlGamelength);
 
-    if (mysqli_num_rows($resultadoDragons) > 0  && mysqli_num_rows($resultadoBarons) > 0 
+    if (mysqli_num_rows($resultadoDragonsTeam1) > 0  && mysqli_num_rows($resultadoDragonsTeam1) > 0 
     && mysqli_num_rows($resultadoTowers) > 0 && mysqli_num_rows($resultadoGamelength) > 0) {
-        $rowDragons = mysqli_fetch_assoc($resultadoDragons);
-        $rowBarons = mysqli_fetch_assoc($resultadoBarons);
+        $rowDragonsTeam1 = mysqli_fetch_assoc($resultadoDragonsTeam1);
+        $rowDragonsTeam2 = mysqli_fetch_assoc($resultadoDragonsTeam2);
+        $rowBaronsTeam1 = mysqli_fetch_assoc($resultadoBaronsTeam1);
+        $rowBaronsTeam2 = mysqli_fetch_assoc($resultadoBaronsTeam2);
         $rowTowers = mysqli_fetch_assoc($resultadoTowers);
         $rowGamelength = mysqli_fetch_assoc($resultadoGamelength);
 
-        $averageDragons = $rowDragons['average_dragons'];
-        $averageBarons = $rowBarons['average_barons'];
+        $averageDragonsTeam1 = $rowDragonsTeam1['average_dragons_team1'];
+        $averageDragonsTeam2 = $rowDragonsTeam2['average_dragons_team2'];
+        $averageBaronsTeam1 = $rowBaronsTeam1['average_barons_team1'];
+        $averageBaronsTeam2 = $rowBaronsTeam2['average_barons_team2'];
         $averageTowers = $rowTowers['average_towers'];
         $averageTime = $rowGamelength['average_gamelength'];
         $averageTimeRound = round($averageTime, 2);
@@ -51,7 +72,8 @@ if(isset($_POST['submit'])){
         $averageSeconds = number_format(($averageTimeRound - ($averageMinutes * 60)), 2); 
         $averageSecondsRound = round($averageSeconds, 0);
 
-        echo "Média de dragons: " . round($averageDragons,2) . " | Média de barons: " . round($averageBarons,2) . " | Média de towers: " . round($averageTowers, 2) . " | Média de tempo: " . $averageMinutes . " minutos " . $averageSecondsRound . " segundos";
+        echo "Média de dragons: " . round(($averageDragonsTeam1 + $averageDragonsTeam2),2) .
+         " | Média de barons: " . round($averageBaronsTeam1 + $averageBaronsTeam2,2) . " | Média de towers: " . round($averageTowers, 2) . " | Média de tempo: " . $averageMinutes . " minutos " . $averageSecondsRound . " segundos";
     } else {
         echo "Nenhum resultado encontrado.";
     }
